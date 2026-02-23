@@ -1,6 +1,26 @@
-import { Play, Pause, Music } from 'lucide-react'
+import { Play, Pause, Music, Volume2, VolumeX } from 'lucide-react'
 
-function Player({ station, isPlaying, onTogglePlay }) {
+// Default radio tower icon
+const DEFAULT_LOGO = 'data:image/svg+xml;base64,' + btoa(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <circle cx="32" cy="32" r="30" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
+  <path d="M32 16v20l12 8" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="32" cy="16" r="3" fill="#10b981"/>
+  <circle cx="44" cy="24" r="2" fill="#10b981"/>
+  <circle cx="44" cy="32" r="2" fill="#10b981"/>
+</svg>
+`)
+
+function Player({
+  station,
+  isPlaying,
+  onTogglePlay,
+  volume,
+  onVolumeChange,
+  muted,
+  onToggleMute,
+  showVolume = true
+}) {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-dark-800/90 backdrop-blur-lg border-t border-dark-600 px-4 py-3 flex items-center gap-4 z-50 shadow-2xl">
       {/* Station logo */}
@@ -11,14 +31,13 @@ function Player({ station, isPlaying, onTogglePlay }) {
             alt={station.name}
             className="h-10 w-10 object-contain"
             onError={(e) => {
-              e.target.style.display = 'none'
-              e.target.nextSibling.style.display = 'flex'
+              e.target.onerror = null
+              e.target.src = DEFAULT_LOGO
             }}
           />
-        ) : null}
-        <div className={`h-10 w-10 flex items-center justify-center ${station.logo ? 'hidden' : ''}`}>
-          <Music size={20} />
-        </div>
+        ) : (
+          <img src={DEFAULT_LOGO} alt="default icon" className="h-10 w-10 object-contain" />
+        )}
       </div>
 
       {/* Now playing info */}
@@ -41,14 +60,39 @@ function Player({ station, isPlaying, onTogglePlay }) {
         )}
       </div>
 
-      {/* Play/Pause button */}
-      <button
-        onClick={onTogglePlay}
-        className="flex-shrink-0 h-12 w-12 flex items-center justify-center bg-accent-500 hover:bg-accent-600 rounded-full text-white shadow-lg transition-transform active:scale-95"
-        aria-label={isPlaying ? 'Pause' : 'Play'}
-      >
-        {isPlaying ? <Pause size={24} /> : <Play size={24} className="ml-1" />}
-      </button>
+      {/* Playback controls */}
+      <div className="flex items-center gap-3">
+        {/* Volume control */}
+        {showVolume && (
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onToggleMute}
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label={muted ? 'Unmute' : 'Mute'}
+            >
+              {muted || volume === 0 ? <VolumeX size={20} /> : <Volume2 size={20} />}
+            </button>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={muted ? 0 : volume}
+              onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
+              className="w-20 h-2 bg-dark-600 rounded-lg appearance-none cursor-pointer accent-accent-500"
+            />
+          </div>
+        )}
+
+        {/* Play/Pause button */}
+        <button
+          onClick={onTogglePlay}
+          className="flex-shrink-0 h-12 w-12 flex items-center justify-center bg-accent-500 hover:bg-accent-600 rounded-full text-white shadow-lg transition-transform active:scale-95"
+          aria-label={isPlaying ? 'Pause' : 'Play'}
+        >
+          {isPlaying ? <Pause size={24} /> : <Play size={24} className="ml-1" />}
+        </button>
+      </div>
     </div>
   )
 }

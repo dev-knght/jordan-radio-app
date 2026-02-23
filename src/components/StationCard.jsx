@@ -1,8 +1,19 @@
 import { Play, Pause } from 'lucide-react'
 
+// Default radio tower icon (SVG data URI)
+const DEFAULT_LOGO = 'data:image/svg+xml;base64,' + btoa(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <circle cx="32" cy="32" r="30" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
+  <path d="M32 16v20l12 8" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="32" cy="16" r="3" fill="#10b981"/>
+  <circle cx="44" cy="24" r="2" fill="#10b981"/>
+  <circle cx="44" cy="32" r="2" fill="#10b981"/>
+</svg>
+`)
+
 function StationCard({ station, isPlaying, onPlay }) {
   const handleClick = () => {
-    if (isPlaying) return // Player handles toggle; do nothing on click of playing card
+    if (isPlaying) return
     onPlay(station)
   }
 
@@ -27,16 +38,17 @@ function StationCard({ station, isPlaying, onPlay }) {
             alt={`${station.name} logo`}
             className="max-h-16 max-w-full object-contain relative z-10"
             onError={(e) => {
-              e.target.style.display = 'none'
-              e.target.nextSibling.style.display = 'flex'
+              e.target.onerror = null
+              e.target.src = DEFAULT_LOGO
             }}
           />
-        ) : null}
-        <div
-          className={`h-16 w-16 flex items-center justify-center bg-dark-600 rounded-full relative z-10 ${station.logo ? 'hidden' : ''}`}
-        >
-          <span className="text-2xl">📻</span>
-        </div>
+        ) : (
+          <img
+            src={DEFAULT_LOGO}
+            alt="default station icon"
+            className="h-16 w-16 object-contain relative z-10"
+          />
+        )}
       </div>
 
       {/* Station name */}
