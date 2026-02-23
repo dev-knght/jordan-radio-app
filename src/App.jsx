@@ -6,15 +6,18 @@ import stationsData from './data/stations.json'
 
 function App() {
   const [stations] = useState(stationsData)
-  const [selectedGenre, setSelectedGenre] = useState(null)
+  const [selectedWord, setSelectedWord] = useState(null)
   const [currentStation, setCurrentStation] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [audio, setAudio] = useState(null)
 
   const filteredStations = useMemo(() => {
-    if (!selectedGenre) return stations
-    return stations.filter((s) => s.genre === selectedGenre)
-  }, [stations, selectedGenre])
+    if (!selectedWord) return stations
+    const lower = selectedWord.toLowerCase()
+    return stations.filter((s) =>
+      s.genre && s.genre.toLowerCase().includes(lower)
+    )
+  }, [stations, selectedWord])
 
   const playStation = useCallback((station) => {
     if (audio) {
@@ -70,11 +73,11 @@ function App() {
 
       {/* Main content */}
       <main className="flex-1 container mx-auto px-4 py-6 pb-32">
-        {/* Genre filter */}
+        {/* Word filter */}
         <GenreFilter
           stations={stations}
-          selectedGenre={selectedGenre}
-          onSelectGenre={setSelectedGenre}
+          selectedWord={selectedWord}
+          onSelectWord={setSelectedWord}
         />
 
         {/* Station grid */}
