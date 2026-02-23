@@ -1,6 +1,5 @@
 import { Play, Pause } from 'lucide-react'
 
-// Default radio tower icon (SVG data URI)
 const DEFAULT_LOGO = 'data:image/svg+xml;base64,' + btoa(`
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <circle cx="32" cy="32" r="30" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
@@ -29,79 +28,77 @@ function StationCard({ station, isPlaying, onPlay }) {
         }
       `}
     >
-      {/* Logo */}
-      <div className="flex items-center justify-center h-20 mb-3 relative">
-        <div className={`absolute inset-0 bg-gradient-to-br from-accent-500/10 to-transparent rounded-xl ${isPlaying ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity`} />
-        {station.logo ? (
-          <img
-            src={station.logo}
-            alt={`${station.name} logo`}
-            className="max-h-16 max-w-full object-contain relative z-10"
-            onError={(e) => {
-              e.target.onerror = null
-              e.target.src = DEFAULT_LOGO
-            }}
-          />
-        ) : (
-          <img
-            src={DEFAULT_LOGO}
-            alt="default station icon"
-            className="h-16 w-16 object-contain relative z-10"
-          />
+      {/* Card header: logo + frequency badge */}
+      <div className="flex items-start justify-between mb-3">
+        <div className="flex items-center justify-center h-16 w-16 flex-shrink-0">
+          {station.logo ? (
+            <img
+              src={station.logo}
+              alt={`${station.name} logo`}
+              className="h-full w-full object-contain"
+              onError={(e) => {
+                e.target.onerror = null
+                e.target.src = DEFAULT_LOGO
+              }}
+            />
+          ) : (
+            <img src={DEFAULT_LOGO} alt="default icon" className="h-full w-full object-contain" />
+          )}
+        </div>
+
+        {/* Frequency badge */}
+        {station.frequency && station.frequency !== 'Online' && (
+          <div className="bg-dark-600/80 backdrop-blur text-[10px] px-2 py-0.5 rounded-full border border-dark-500">
+            {station.frequency}
+          </div>
+        )}
+        {station.frequency === 'Online' && (
+          <div className="bg-accent-600/90 backdrop-blur text-[10px] px-2 py-0.5 rounded-full border border-accent-500/50">
+            Online
+          </div>
         )}
       </div>
 
       {/* Station name */}
-      <h3 className="font-semibold text-lg text-center line-clamp-2 min-h-[3rem]">
+      <h3 className="font-semibold text-lg text-center line-clamp-2 min-h-[3rem] mb-1">
         {station.name}
       </h3>
 
       {/* Genre */}
       {station.genre && (
-        <p className="text-xs text-center text-gray-400 mt-1 line-clamp-1">
+        <p className="text-xs text-center text-gray-400 line-clamp-1">
           {station.genre}
         </p>
       )}
 
-      {/* Frequency badge */}
-      {station.frequency && station.frequency !== 'Online' && (
-        <div className="absolute top-2 right-2 bg-dark-600/80 backdrop-blur text-xs px-2 py-1 rounded-full border border-dark-500">
-          {station.frequency}
-        </div>
-      )}
-
-      {/* Online badge */}
-      {station.frequency === 'Online' && (
-        <div className="absolute top-2 right-2 bg-accent-600/90 backdrop-blur text-xs px-2 py-1 rounded-full border border-accent-500/50">
-          Online
-        </div>
-      )}
-
-      {/* Playing indicator */}
+      {/* Playing indicator (small dot) */}
       {isPlaying && (
-        <div className="absolute top-2 left-2">
-          <div className="flex items-center gap-1 bg-accent-600 text-white text-[10px] px-2 py-1 rounded-full shadow-lg">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-            </span>
-            LIVE
-          </div>
+        <div className="flex items-center justify-center gap-1 mt-2">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-500 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
+          </span>
+          <span className="text-[10px] text-accent-500 font-medium">Playing</span>
         </div>
       )}
 
-      {/* Play overlay */}
+      {/* Play button (centered overlay on hover, or always visible when not playing) */}
       <div
         className={`
-          absolute inset-0 flex items-center justify-center bg-black/30 rounded-2xl
-          transition-opacity duration-200
-          ${isPlaying ? 'opacity-0 pointer-events-none' : 'opacity-100 group-hover:bg-black/20'}
+          absolute inset-0 flex items-center justify-center
+          transition-opacity duration-200 rounded-2xl
+          ${isPlaying ? 'opacity-0 pointer-events-none' : 'bg-black/20 opacity-0 group-hover:opacity-100'}
         `}
       >
         <button className="h-14 w-14 flex items-center justify-center bg-accent-500 hover:bg-accent-600 rounded-full text-white shadow-xl transform transition-transform active:scale-95">
-          {isPlaying ? <Pause size={28} /> : <Play size={28} className="ml-1" />}
+          <Play size={28} className="ml-1" />
         </button>
       </div>
+
+      {/* Border accent when playing */}
+      {isPlaying && (
+        <div className="absolute inset-0 rounded-2xl ring-2 ring-accent-500 pointer-events-none" />
+      )}
     </div>
   )
 }
