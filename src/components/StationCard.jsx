@@ -1,14 +1,5 @@
 import { Play, Pause } from 'lucide-react'
-
-const DEFAULT_LOGO = 'data:image/svg+xml;base64,' + btoa(`
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <circle cx="32" cy="32" r="30" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
-  <path d="M32 16v20l12 8" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="32" cy="16" r="3" fill="#10b981"/>
-  <circle cx="44" cy="24" r="2" fill="#10b981"/>
-  <circle cx="44" cy="32" r="2" fill="#10b981"/>
-</svg>
-`)
+import DefaultIcon from './DefaultIcon'
 
 function StationCard({ station, isPlaying, onPlay }) {
   const handleClick = () => {
@@ -36,13 +27,9 @@ function StationCard({ station, isPlaying, onPlay }) {
               src={station.logo}
               alt={`${station.name} logo`}
               className="h-full w-full object-contain"
-              onError={(e) => {
-                e.target.onerror = null
-                e.target.src = DEFAULT_LOGO
-              }}
             />
           ) : (
-            <img src={DEFAULT_LOGO} alt="default icon" className="h-full w-full object-contain" />
+            <DefaultIcon />
           )}
         </div>
 
