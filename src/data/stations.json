@@ -168,5 +168,45 @@
     "liveUrl": "https://jrtv-live.ercdn.net/jrradio/englishradiovideo.m3u8",
     "language": "Arabic/English Mix",
     "country": "Jordan"
+  },
+  {
+    "id": "husna-fm",
+    "name": "Husna FM",
+    "genre": "Community / Talk",
+    "logo": "",
+    "frequency": "93.3-93.5 FM (Amman), 102.9 FM (Irbid)",
+    "liveUrl": "",
+    "language": "Arabic",
+    "country": "Jordan"
+  },
+  {
+    "id": "bliss-fm",
+    "name": "Bliss FM",
+    "genre": "Pop / Contemporary",
+    "logo": "",
+    "frequency": "104.3 FM (Amman)",
+    "liveUrl": "",
+    "language": "Arabic",
+    "country": "Jordan"
+  },
+  {
+    "id": "ain-fm",
+    "name": "Ain FM",
+    "genre": "Talk / Community",
+    "logo": "",
+    "frequency": "98.3 FM",
+    "liveUrl": "",
+    "language": "Arabic",
+    "country": "Jordan"
+  },
+  {
+    "id": "hala-fm",
+    "name": "Hala FM",
+    "genre": "Pop / Top 40",
+    "logo": "",
+    "frequency": "102.1 FM",
+    "liveUrl": "",
+    "language": "Arabic",
+    "country": "Jordan"
   }
 ]
