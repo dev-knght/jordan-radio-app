@@ -1,48 +1,13 @@
-export const DEFAULT_ICON = () => (
-  <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-dark-800 to-dark-900 rounded-xl">
-    <svg
-      viewBox="0 0 64 64"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-12 w-12"
-    >
-      {/* Radio waves */}
-      <path
-        d="M48 16c0 8.837-7.163 16-16 16"
-        stroke="#10b981"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        opacity="0.6"
-      />
-      <path
-        d="M48 20c0 6.627-5.373 12-12 12"
-        stroke="#10b981"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        opacity="0.8"
-      />
-      <path
-        d="M48 24c0 4.418-3.582 8-8 8"
-        stroke="#10b981"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-      />
-      {/* Antenna mast */}
-      <path
-        d="M16 48V24"
-        stroke="#10b981"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-      {/* Base */}
-      <path
-        d="M12 48h20v4H12z"
-        fill="#10b981"
-      />
-      {/* Small radiating element */}
-      <circle cx="20" cy="24" r="2" fill="#10b981" />
-    </svg>
-  </div>
-)
-
-export default DEFAULT_ICON
+export default function DefaultIcon() {
+  return (
+    <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-dark-800 to-dark-900 rounded-xl text-accent-500">
+      <svg
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        className="h-12 w-12"
+      >
+        <path d="M16 16v.01c0 .53-.14 1.02-.38 1.46-.24.44-.57.78-.98 1.02-.41.24-.88.38-1.38.38-1.08 0-2.07-.55-2.63-1.46-.56-.91-.67-2.02-.35-2.98l1.46-4.87c.27-.9 1.1-1.52 2.04-1.52 1.45 0 2.68 1.09 2.94 2.57.03.22.16.41.36.56.21.15.46.22.69.22.31 0 .59-.13.79-.4.2-.27.3-.62.3-1.06 0-.55-.27-1.04-.74-1.35-.47-.3-1.09-.47-1.76-.47-1.1 0-2.1.43-2.78 1.19-.68.76-.88 1.81-.56 2.7l1.48 4.93c.25.84 1.03 1.42 1.91 1.42 1.38 0 2.53-1.04 2.78-2.46.03-.2.15-.39.34-.53.19-.15.42-.22.63-.22.28 0 .53.12.71.36.18.24.27.56.27.96 0 .51-.24.96-.68 1.25-.43.29-1.02.45-1.66.45z" />
+      </svg>
+    </div>
+  )
+}

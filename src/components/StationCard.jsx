@@ -1,7 +1,10 @@
-import { Play, Pause } from 'lucide-react'
+import { useState } from 'react'
+import { Play } from 'lucide-react'
 import DefaultIcon from './DefaultIcon'
 
 function StationCard({ station, isPlaying, onPlay }) {
+  const [imgBroken, setImgBroken] = useState(false)
+
   const handleClick = () => {
     if (isPlaying) return
     onPlay(station)
@@ -22,11 +25,12 @@ function StationCard({ station, isPlaying, onPlay }) {
       {/* Card header: logo + frequency badge */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center justify-center h-16 w-16 flex-shrink-0">
-          {station.logo ? (
+          {station.logo && !imgBroken ? (
             <img
               src={station.logo}
               alt={`${station.name} logo`}
               className="h-full w-full object-contain"
+              onError={() => setImgBroken(true)}
             />
           ) : (
             <DefaultIcon />
@@ -58,7 +62,7 @@ function StationCard({ station, isPlaying, onPlay }) {
         </p>
       )}
 
-      {/* Playing indicator (small dot) */}
+      {/* Playing indicator */}
       {isPlaying && (
         <div className="flex items-center justify-center gap-1 mt-2">
           <span className="relative flex h-2 w-2">
@@ -69,7 +73,7 @@ function StationCard({ station, isPlaying, onPlay }) {
         </div>
       )}
 
-      {/* Play button (centered overlay on hover, or always visible when not playing) */}
+      {/* Play button overlay */}
       <div
         className={`
           absolute inset-0 flex items-center justify-center
@@ -82,7 +86,7 @@ function StationCard({ station, isPlaying, onPlay }) {
         </button>
       </div>
 
-      {/* Border accent when playing */}
+      {/* Playing border */}
       {isPlaying && (
         <div className="absolute inset-0 rounded-2xl ring-2 ring-accent-500 pointer-events-none" />
       )}
