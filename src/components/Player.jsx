@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react'
 import DefaultIcon from './DefaultIcon'
 
@@ -13,6 +13,11 @@ function Player({
   showVolume = true
 }) {
   const [logoError, setLogoError] = useState(false)
+
+  // Reset error state when station changes
+  useEffect(() => {
+    setLogoError(false)
+  }, [station.id])
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-dark-800/90 backdrop-blur-lg border-t border-dark-600 px-4 py-3 flex items-center gap-4 z-50 shadow-2xl">
