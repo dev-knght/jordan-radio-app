@@ -1,15 +1,6 @@
-import { Play, Pause, Music, Volume2, VolumeX } from 'lucide-react'
-
-// Default radio tower icon
-const DEFAULT_LOGO = 'data:image/svg+xml;base64,' + btoa(`
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <circle cx="32" cy="32" r="30" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
-  <path d="M32 16v20l12 8" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="32" cy="16" r="3" fill="#10b981"/>
-  <circle cx="44" cy="24" r="2" fill="#10b981"/>
-  <circle cx="44" cy="32" r="2" fill="#10b981"/>
-</svg>
-`)
+import { useState } from 'react'
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react'
+import DefaultIcon from './DefaultIcon'
 
 function Player({
   station,
@@ -21,22 +12,21 @@ function Player({
   onToggleMute,
   showVolume = true
 }) {
+  const [logoError, setLogoError] = useState(false)
+
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-dark-800/90 backdrop-blur-lg border-t border-dark-600 px-4 py-3 flex items-center gap-4 z-50 shadow-2xl">
       {/* Station logo */}
       <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-dark-600 rounded-full overflow-hidden ring-2 ring-accent-500/30">
-        {station.logo ? (
+        {station.logo && !logoError ? (
           <img
             src={station.logo}
             alt={station.name}
             className="h-10 w-10 object-contain"
-            onError={(e) => {
-              e.target.onerror = null
-              e.target.src = DEFAULT_LOGO
-            }}
+            onError={() => setLogoError(true)}
           />
         ) : (
-          <img src={DEFAULT_LOGO} alt="default icon" className="h-10 w-10 object-contain" />
+          <DefaultIcon />
         )}
       </div>
 
