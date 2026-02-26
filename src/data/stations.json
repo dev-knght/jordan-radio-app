@@ -198,5 +198,15 @@
     "liveUrl": "",
     "language": "Arabic",
     "country": "Jordan"
+  },
+  {
+    "id": "almamlaka-tv",
+    "name": "Al-Mamlakah",
+    "genre": "News / Talk",
+    "logo": "https://yt3.googleusercontent.com/ytc/AIdro_k2Q10aeHs5-DCmdpJghKWzPdB0iqLpM00pUcvt2KKijFc=s900-c-k-c0x00ffffff-no-rj",
+    "frequency": "Online",
+    "liveUrl": "https://bcovlive-a.akamaihd.net/4109c7ba30fd4a44ad9afe917c67a8c8/eu-central-1/6415809151001/profile_0/chunklist.m3u8",
+    "language": "Arabic",
+    "country": "Jordan"
   }
 ]
