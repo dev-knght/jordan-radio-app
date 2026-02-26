@@ -208,5 +208,15 @@
     "liveUrl": "https://bcovlive-a.akamaihd.net/4109c7ba30fd4a44ad9afe917c67a8c8/eu-central-1/6415809151001/profile_0/chunklist.m3u8",
     "language": "Arabic",
     "country": "Jordan"
+  },
+  {
+    "id": "npr",
+    "name": "NPR",
+    "genre": "News / Talk",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/1/18/NPR_new_logo.svg",
+    "frequency": "Online",
+    "liveUrl": "https://npr-ice.streamguys1.com/live.mp3",
+    "language": "English",
+    "country": "USA"
   }
 ]
