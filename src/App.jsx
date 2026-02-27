@@ -35,15 +35,26 @@ function App() {
   const playStation = useCallback((station) => {
     if (audioRef.current) {
       audioRef.current.pause()
-      audioRef.current.remove()
+      if (audioRef.current.parentNode) {
+        audioRef.current.parentNode.removeChild(audioRef.current)
+      }
+      audioRef.current = null
     }
-    const newAudio = new Audio(station.liveUrl)
-    newAudio.volume = muted ? 0 : volume
-    newAudio.play().catch((err) => {
+
+    const audio = new Audio()
+    audio.crossOrigin = 'anonymous'
+    audio.src = station.liveUrl
+    audio.volume = muted ? 0 : volume
+
+    // Append to body to ensure playback works on more devices
+    document.body.appendChild(audio)
+
+    audio.play().catch((err) => {
       console.error('Playback failed:', err)
       setIsPlaying(false)
     })
-    audioRef.current = newAudio
+
+    audioRef.current = audio
     setCurrentStation(station)
     setIsPlaying(true)
   }, [volume, muted])
@@ -82,80 +93,57 @@ function App() {
     return () => {
       if (audioRef.current) {
         audioRef.current.pause()
-        audioRef.current.remove()
+        if (audioRef.current.parentNode) {
+          audioRef.current.parentNode.removeChild(audioRef.current)
+        }
+        audioRef.current = null
       }
     }
   }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-dark-900 to-dark-800 text-white flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-dark-900 to-black text-white">
       {/* Header */}
-      <header className="bg-dark-800/80 backdrop-blur-md border-b border-dark-600 px-4 py-4 sticky top-0 z-40">
-        <div className="container mx-auto flex flex-col gap-3">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-            <div>
-              <h1 className="text-xl md:text-2xl font-bold flex items-center gap-2">
-                <span>🇯🇴</span> Jordan Radio
-              </h1>
-              <p className="text-sm text-gray-400 mt-1">Live radio stations from Jordan</p>
-            </div>
-            <div className="text-xs text-gray-500">
-              {filteredStations.length} stations
-            </div>
-          </div>
-
-          {/* Search bar */}
-          <div className="relative">
+      <header className="sticky top-0 z-40 bg-dark-800/80 backdrop-blur-lg border-b border-dark-600">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between mb-3">
+            <h1 className="text-xl font-bold text-accent-500">Jordan Radio</h1>
             <input
               type="text"
               placeholder="Search stations..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-dark-700 border border-dark-600 rounded-lg px-4 py-2 pl-10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+              className="bg-dark-700 border border-dark-500 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 w-48"
             />
-            <svg className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-2 text-gray-400 hover:text-white"
-              >
-                ✕
-              </button>
-            )}
           </div>
+          <GenreFilter
+            stations={stations}
+            selectedWord={selectedWord}
+            onSelectWord={setSelectedWord}
+          />
         </div>
       </header>
 
-      {/* Main content */}
-      <main className="flex-1 container mx-auto px-4 py-6 pb-32">
-        {/* Word filter */}
-        <GenreFilter
-          stations={stations}
-          selectedWord={selectedWord}
-          onSelectWord={setSelectedWord}
-        />
-
-        {/* Station grid */}
+      {/* Main list */}
+      <main className="max-w-7xl mx-auto px-4 py-6 pb-24">
         <StationList
           stations={filteredStations}
           currentStation={currentStation}
+          isPlaying={isPlaying}
           onPlay={playStation}
         />
       </main>
 
-      {/* Bottom Player */}
+      {/* Player */}
       {currentStation && (
         <Player
           station={currentStation}
           isPlaying={isPlaying}
           onTogglePlay={togglePlayPause}
-          volume={muted ? 0 : volume}
+          volume={volume}
           onVolumeChange={handleVolumeChange}
           muted={muted}
           onToggleMute={toggleMute}
-          showVolume={true}
         />
       )}
     </div>
