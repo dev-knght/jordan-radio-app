@@ -218,5 +218,15 @@
     "liveUrl": "https://nprdmp-live01-aac.akacast.akamaistream.net/7/91/364917/v1/npr.akacast.akamaistream.net/nprdmp_live01_aac",
     "language": "English",
     "country": "USA"
+  },
+  {
+    "id": "al-jazeera-arabic",
+    "name": "Al Jazeera Arabic",
+    "genre": "News / Talk",
+    "logo": "https://www.google.com/s2/favicons?domain=aljazeera.com&sz=64",
+    "frequency": "Online",
+    "liveUrl": "https://live-hls-web-aja.getaj.net/AJA/index.m3u8",
+    "language": "Arabic",
+    "country": "Qatar"
   }
 ]
