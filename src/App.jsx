@@ -46,7 +46,15 @@ function App() {
     audio.src = station.liveUrl
     audio.volume = muted ? 0 : volume
 
-    // Append to body to ensure playback works on more devices
+    // Handle errors and natural end
+    audio.onerror = () => {
+      console.error('Audio error:', audio.error)
+      setIsPlaying(false)
+    }
+    audio.onended = () => {
+      setIsPlaying(false)
+    }
+
     document.body.appendChild(audio)
 
     audio.play().catch((err) => {
@@ -64,7 +72,10 @@ function App() {
     if (isPlaying) {
       audioRef.current.pause()
     } else {
-      audioRef.current.play().catch((err) => console.error('Playback failed:', err))
+      audioRef.current.play().catch((err) => {
+        console.error('Playback failed:', err)
+        setIsPlaying(false)
+      })
     }
     setIsPlaying(!isPlaying)
   }, [isPlaying])
