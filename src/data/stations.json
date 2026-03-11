@@ -238,5 +238,25 @@
     "liveUrl": "https://ice5.somafm.com/defcon-128-mp3",
     "language": "English",
     "country": "USA"
+  },
+  {
+    "id": "relaxing-jazz",
+    "name": "Relaxing Jazz",
+    "genre": "Smooth Jazz / Chill",
+    "logo": "https://www.google.com/s2/favicons?domain=relaxingjazz.com&sz=64",
+    "frequency": "Online",
+    "liveUrl": "https://stream-02-eu.relaxingjazz.com/stream/1/",
+    "language": "English",
+    "country": "International"
+  },
+  {
+    "id": "groovera",
+    "name": "Groovera",
+    "genre": "Downtempo / Chill",
+    "logo": "https://www.google.com/s2/favicons?domain=somafm.com&sz=64",
+    "frequency": "Online",
+    "liveUrl": "https://ice5.somafm.com/groovera-128-mp3",
+    "language": "English",
+    "country": "USA"
   }
 ]

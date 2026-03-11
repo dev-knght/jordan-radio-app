@@ -1,4 +1,4 @@
-const VERSION = 'v1.0.3'
+const VERSION = 'v1.0.4'
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import StationList from './components/StationList'
