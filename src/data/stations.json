@@ -250,12 +250,12 @@
     "country": "International"
   },
   {
-    "id": "groovera",
-    "name": "Groovera",
+    "id": "groove-salad",
+    "name": "Groove Salad",
     "genre": "Downtempo / Chill",
     "logo": "https://www.google.com/s2/favicons?domain=somafm.com&sz=64",
     "frequency": "Online",
-    "liveUrl": "https://ice5.somafm.com/groovera-128-mp3",
+    "liveUrl": "https://ice5.somafm.com/groovesalad-128-mp3",
     "language": "English",
     "country": "USA"
   }
