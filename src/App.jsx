@@ -1,3 +1,5 @@
+const VERSION = 'v1.0.1'
+
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import StationList from './components/StationList'
 import Player from './components/Player'
@@ -117,8 +119,11 @@ function App() {
       {/* Header */}
       <header className="sticky top-0 z-40 bg-dark-800/80 backdrop-blur-lg border-b border-dark-600">
         <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-3">
-            <h1 className="text-xl font-bold text-accent-500">Jordan Radio</h1>
+          <div className="flex items-center justify-between mb-1">
+            <div>
+              <h1 className="text-xl font-bold text-accent-500">Jordan Radio</h1>
+              <p className="text-[10px] text-gray-500">Version {VERSION}</p>
+            </div>
             <input
               type="text"
               placeholder="Search stations..."
