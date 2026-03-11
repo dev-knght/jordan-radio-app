@@ -228,5 +228,25 @@
     "liveUrl": "https://live-hls-web-aja.getaj.net/AJA/index.m3u8",
     "language": "Arabic",
     "country": "Qatar"
+  },
+  {
+    "id": "defcon-radio",
+    "name": "DEF CON Radio",
+    "genre": "Electronic / Hacker",
+    "logo": "https://www.google.com/s2/favicons?domain=somafm.com&sz=64",
+    "frequency": "Online",
+    "liveUrl": "https://ice5.somafm.com/defcon-128-mp3",
+    "language": "English",
+    "country": "USA"
+  },
+  {
+    "id": "code-radio",
+    "name": "Code Radio",
+    "genre": "Chill / Coding",
+    "logo": "https://www.google.com/s2/favicons?domain=freecodecamp.org&sz=64",
+    "frequency": "Online",
+    "liveUrl": "https://coderadio-admin.freecodecamp.org/radio/8010/radio.mp3",
+    "language": "English",
+    "country": "USA"
   }
 ]
